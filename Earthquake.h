@@ -7,11 +7,12 @@ struct Earthquake {
     double impactMagnitude;
     int impactSignifcance;
     double locationDepth;
+    double locationDistance;
     double locationLatitude;
     double locationLongitude;
     std::string locationName;
     int timeDay;
-    int timeEpoch;
+    long long timeEpoch;
     int timeHour;
     int timeMinute;
     int timeMonth;
