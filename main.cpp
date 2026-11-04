@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <exception>
+#include <sstream>
 
 #include "csv.h"
 #include "Earthquake.h"
+#include "EarthquakeSort.h"
+#include "Searches/Interpolation.h"
 
 int main()
 {
@@ -50,7 +52,24 @@ int main()
             eq.timeYear = timeYear;
             earthquakes.push_back(eq);
     }
-    
+    if (earthquakes.empty()) {
+        std::cout << "Earthquakes failed to load. Exiting program." << std::endl;
+        return 0;
+    }
     std::cout << "Loaded " << earthquakes.size() << " earthquakes from the CSV file." << std::endl;
+    std::string choice = "";
+    std::cout << "Choose a field to sort and search by:" << std::endl << "1. impactGap" << std::endl 
+    << "2. impactMagnitude" << std::endl << "3. impactSignificance" << std::endl << "4. locationDepth" << std::endl
+    << "5. locationDistance" << std::endl << "6. locationLatitude" << std::endl << "7. locationLongitude" << std::endl
+    << "8. timeDay" << std::endl << "9. timeEpoch" << std::endl << "10. timeHour" << std::endl
+    << "11. timeMinute" << std::endl << "12. timeMonth" << std::endl << "13. timeSecond" << std::endl << "14. timeYear" << std::endl;
+    std::cout << "Enter selections (1-14) seperated by spaces: ";
+    std::getline(std::cin, choice);
+    std::vector<int> choices;
+    std::stringstream ss(choice);
+    int c;
+    while (ss >> c) {
+        choices.push_back(c);
+    }
     return 0;
 }
