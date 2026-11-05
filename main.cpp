@@ -76,6 +76,7 @@ int main()
     long long longValue;
     results res;
     for (auto i : choices) {
+        res = results{};
         intValue = 0, index = 0, doubleValue = 0.0, longValue = 0;
         switch (i) {
             case 1:
