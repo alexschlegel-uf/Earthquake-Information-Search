@@ -10,9 +10,6 @@
 
 int main()
 {
-    // Fibonacci Search works for both strings and ints, so make sure you use a template so that both work
-    // On the other hand, Interpolation Search only works for ints, so when making the ui, lock string options when Interp is selected,
-    // describing with some text at the bottom or something that it has a weakness of not working for strings.
     std::vector<Earthquake> earthquakes;
 
     // Load the CSV file into the vector of Earthquake structs
@@ -52,11 +49,13 @@ int main()
             eq.timeYear = timeYear;
             earthquakes.push_back(eq);
     }
+    // Check to ensure the vector actually populated
     if (earthquakes.empty()) {
         std::cout << "Earthquakes failed to load. Exiting program." << std::endl;
         return 0;
     }
     std::cout << "Loaded " << earthquakes.size() << " earthquakes from the CSV file." << std::endl;
+    // Prompt the user to choose a field to sort and search by
     std::string choice = "";
     std::cout << "Choose a field to sort and search by:" << std::endl << "1. impactGap" << std::endl 
     << "2. impactMagnitude" << std::endl << "3. impactSignificance" << std::endl << "4. locationDepth" << std::endl
@@ -71,22 +70,30 @@ int main()
     while (ss >> c) {
         choices.push_back(c);
     }
+    // Initialize variables for the search
     int intValue, index = 0;
     double doubleValue;
     long long longValue;
     results res;
+    // For each choice, sort by chosen field, prompt for value to search by, then perform interpolation search and display results
+    // Display the index if it is found, otherwise display the closest above and below indexes and their values
     for (auto i : choices) {
         res = results{};
         intValue = 0, index = 0, doubleValue = 0.0, longValue = 0;
         switch (i) {
             case 1:
+                // Sort
                 earthquakeSort(earthquakes, &Earthquake::impactGap);
+                // Get value
                 std::cout << "Enter a double value to search for in impactGap: ";
                 std::cin >> doubleValue;
+                // Put the results in a results struct
                 res = interpolationSearch(earthquakes, &Earthquake::impactGap, doubleValue, 0, earthquakes.size() - 1, res);
+                // If index exists, return it
                 if (res.index != -1) {
                     std::cout << "Found earthquake with impactGap " << doubleValue << " at index " << res.index << std::endl;
                 } else {
+                    // Otherwise, return the closest above and below indexes and their values, given they exist
                     if (res.above != -1) {
                         std::cout << "Earthquake with impactGap " << doubleValue << " not found. Closest above is at index " << res.above 
                         << " with value " << earthquakes[res.above].impactGap << std::endl;
@@ -332,6 +339,7 @@ int main()
                 }
                 break;
             default:
+                // For when a value not allowed is given
                 std::cout << "Invalid choice: " << i << std::endl;
         }
     }
