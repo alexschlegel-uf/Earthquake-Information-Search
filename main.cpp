@@ -5,6 +5,8 @@
 
 #include "csv.h"
 #include "Earthquake.h"
+#include "Earthquakesort.h"
+#include "Searches/Fibonacci.h"
 
 int main()
 {
@@ -52,5 +54,14 @@ int main()
     }
     
     std::cout << "Loaded " << earthquakes.size() << " earthquakes from the CSV file." << std::endl;
+
+    /* to use fibonnaci sort, first sort the vector by 'inforation'(i.e. id, impactMagnitude, locationName,etc) by:
+    earthquakeSort(earthquakes, &Earthquake::'information');
+    then choose a target 'information' to search for
+    to run the Fibonacci search targeting the 'information' field:
+    target = whatever target you want for 'information'
+    FibonacciSearch::search(earthquakes, target, [](const Earthquake& eq) {return eq.'information';});
+    it will either return the index in which the target was found or -1 if no target found
+*/
     return 0;
 }
