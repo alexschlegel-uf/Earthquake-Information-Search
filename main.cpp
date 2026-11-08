@@ -2,13 +2,13 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <chrono>
 
 #include "csv.h"
 #include "Earthquake.h"
-#include "Earthquakesort.h"
-#include "Searches/Fibonacci.h"
 #include "EarthquakeSort.h"
 #include "Searches/Interpolation.h"
+#include "Searches/Fibonacci.h"
 
 int main()
 {
@@ -66,7 +66,8 @@ int main()
     FibResult res = FibonacciSearch::search(earthquakes, target, [](const Earthquake& eq) {return eq.'information';});
     it will return a FibResult struct (res) that has the index in which the target was found or -1 if no target found
     for index and index of closest element below and above target or -1 for below and above
-*/
+    */
+
     // Prompt the user to choose a field to sort and search by
     std::string choice = "";
     std::cout << "Choose a field to sort and search by:" << std::endl << "1. impactGap" << std::endl 
