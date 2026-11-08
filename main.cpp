@@ -60,8 +60,9 @@ int main()
     then choose a target 'information' to search for
     to run the Fibonacci search targeting the 'information' field:
     target = whatever target you want for 'information'
-    FibonacciSearch::search(earthquakes, target, [](const Earthquake& eq) {return eq.'information';});
-    it will either return the index in which the target was found or -1 if no target found
+    FibResult res = FibonacciSearch::search(earthquakes, target, [](const Earthquake& eq) {return eq.'information';});
+    it will return a FibResult struct (res) that has the index in which the target was found or -1 if no target found
+    for index and index of closest element below and above target or -1 for below and above
 */
     return 0;
 }

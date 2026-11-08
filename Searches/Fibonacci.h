@@ -6,13 +6,20 @@
 #include "../Earthquake.h"
 using namespace std;
 
+struct FibResult {
+    int index = -1;
+    int below = -1;
+    int above = -1;
+};
+
 class FibonacciSearch {
 
     public:
     template<typename T, typename KeyExtracter> //since what we searching can be int,string,...
-    static int search(const vector<Earthquake>& earthquakes, T target, KeyExtracter extracter) {
+    static FibResult search(const vector<Earthquake>& earthquakes, T target, KeyExtracter extracter) {
+        FibResult res;
         int size = earthquakes.size();
-        if (size == 0) {return -1;}
+        if (size == 0) {return res;}
         //getting fibonacci numbers
         int fib1 = 0, fib2 = 1;
         int fibMax = fib1 + fib2;
@@ -39,14 +46,21 @@ class FibonacciSearch {
                 fib2 = fib2 - fib1;
                 fib1 = fibMax - fib2;
             }
-            else { return i;}
+            else {
+                res.index = i;
+                return res;
+            }
         }
         if (fib2 && offset + 1 < size) {
             if (extracter(earthquakes[offset+1]) == target) {
-                return offset + 1;
+                res.index = offset + 1;
+                return res;
             }
         }
-        return -1;
+
+        res.below = offset;
+        res.above = (offset + 1 < size) ? offset + 1 : -1;
+        return res;
     }
 };
 
