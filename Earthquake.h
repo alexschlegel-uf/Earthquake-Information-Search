@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+// Basic struct to hold the data for each earthquake, with each field corresponding to a column in the CSV file
 struct Earthquake {
     std::string id;
     double impactGap;
