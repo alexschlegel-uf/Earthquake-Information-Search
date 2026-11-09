@@ -14,11 +14,11 @@ void display(std::vector<Earthquake>& earthquakes, T Earthquake::*field, const s
         std::cout << "Found earthquake with " << fieldName << " " << find << " at index " << res.index << std::endl;
     } else {
         if (res.above != -1) {
-            std::cout << "Earthquake with "<< fieldName << " " << doubleValue << " not found. Closest above is at index " << res.above 
+            std::cout << "Earthquake with "<< fieldName << " " << find << " not found. Closest above is at index " << res.above 
             << " with value " << earthquakes[res.above].*field << std::endl;
         }
         if (res.below != -1) {
-            std::cout << "Earthquake with " << fieldName << " " << doubleValue << " not found. Closest below is at index " << res.below 
+            std::cout << "Earthquake with " << fieldName << " " << find << " not found. Closest below is at index " << res.below 
             << " with value " << earthquakes[res.below].*field << std::endl;
         }
     }
@@ -40,7 +40,7 @@ void search(std::vector<Earthquake>& earthquakes, T Earthquake::*field, const st
         }
         case 2: {
             FibResult res = FibonacciSearch::search(earthquakes, find, [field](const Earthquake& quake) {return quake.*field;});
-            display(earthquakes, field, fieldname, res, find);
+            display(earthquakes, field, fieldName, res, find);
             break;
         }
         case 3: {
@@ -50,7 +50,7 @@ void search(std::vector<Earthquake>& earthquakes, T Earthquake::*field, const st
             display(earthquakes, field, fieldName, res, find);
             FibResult fibRes = FibonacciSearch::search(earthquakes, find, [field](const Earthquake& quake) {return quake.*field;});
             std::cout << "\n--Fibonacci Search Results--" << std::endl;
-            display(earthquakes, field, fieldname, fibRes, find);
+            display(earthquakes, field, fieldName, fibRes, find);
             break;
         }
         default: {
@@ -67,5 +67,5 @@ void fiboStringSearch(std::vector<Earthquake>& earthquakes, T Earthquake::*field
     std::cin >> find;
 
     FibResult res = FibonacciSearch::search(earthquakes, find, [field](const Earthquake& quake) {return quake.*field;});
-    display(earthquakes, field, fieldname, res, find);
+    display(earthquakes, field, fieldName, res, find);
 }
