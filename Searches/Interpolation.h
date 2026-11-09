@@ -42,7 +42,7 @@ results interpolationSearch(const std::vector<Earthquake>& earthquakes, T Earthq
             return res;
         }
         // Calculate the interpolation index
-        int interpIndex = low + (int)((find - earthquakes[low].*field)*(high - low))/(earthquakes[high].*field - earthquakes[low].*field);
+        int interpIndex = low + (int)(((find - earthquakes[low].*field)*(high - low))/(earthquakes[high].*field - earthquakes[low].*field));
         // Check if the value to find is equal to the value at the interpolation index, returning that index if so
         if (earthquakes[interpIndex].*field == find) {
             res.index = interpIndex;
